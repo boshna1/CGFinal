@@ -28,16 +28,26 @@ public class Player : MonoBehaviour
         {
             isAccelerating = false;
         }
-        if (!isAccelerating)
+        if (Input.GetKeyUp(KeyCode.A))
+        {
+            transform.LookAt(Vector3.left);
+        }
+        if (Input.GetKeyUp(KeyCode.D))
+        {
+            transform.LookAt(Vector3.left);
+        }
+        if (!isAccelerating && speed > 0)
         {
             speed -= 0.05f;
         }
-        Input.GetAxis("Horizontal");
-        Input.GetAxis("Vertical");
     }
 
     void Accelerate()
     {
-        speed += 0.01f;
+        if (speed < 3)
+        {
+            speed += 0.01f;
+        }
+        
     }
 }
