@@ -1,5 +1,11 @@
 Shader "Vertex Coloring Shader"
 {
+    Properties
+    {
+        _RedScale("Red", Range(0,255)) = 0
+        _BlueScale("Blue", Range(0,255)) = 0
+        _GreenScale("Green", Range(0,255)) = 0
+    }
     SubShader
     {
         Pass
@@ -28,13 +34,19 @@ Shader "Vertex Coloring Shader"
             return o;
         }
 
+        float _RedScale;
+        float _BlueScale;
+        float _GreenScale;
         fixed4 frag (v2f i) : SV_Target
         {
             
             fixed4 col = i.color;
-            col.r = i.vertex.x/_Time.y;
-            col.g = i.vertex.x/_Time.y * 0.5;
-            col.b = i.vertex.x/_Time.y * 0.25;
+            _RedScale *=  _Time.y;
+            _GreenScale *= _Time.y * 0.5;
+            _BlueScale *= _Time.y * 0.25;
+            col.r = i.vertex.x / _RedScale;
+            col.g = i.vertex.y / _GreenScale;
+            col.b = i.vertex.z / _BlueScale;
             return col;
         }
         ENDCG
