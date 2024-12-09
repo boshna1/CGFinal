@@ -24,17 +24,24 @@ public class Player : MonoBehaviour
             moveVector = Vector3.forward;
             rb.velocity = moveVector * speed;
         }
+        if (Input.GetKey(KeyCode.S))
+        {
+            isAccelerating = true;
+            Accelerate();
+            moveVector = Vector3.back;
+            rb.velocity = moveVector * speed;
+        }
         if (Input.GetKeyUp(KeyCode.W))
         {
             isAccelerating = false;
         }
-        if (Input.GetKeyUp(KeyCode.A))
+        if (Input.GetKey(KeyCode.D))
         {
-            transform.LookAt(Vector3.left);
+            transform.Rotate(new Vector3(0, 1, 0), 1);
         }
-        if (Input.GetKeyUp(KeyCode.D))
+        if (Input.GetKey(KeyCode.A))
         {
-            transform.LookAt(Vector3.left);
+            transform.Rotate(new Vector3(0, 1, 0), -1);
         }
         if (!isAccelerating && speed > 0)
         {
@@ -44,7 +51,7 @@ public class Player : MonoBehaviour
 
     void Accelerate()
     {
-        if (speed < 3)
+        if (speed < 1)
         {
             speed += 0.01f;
         }
