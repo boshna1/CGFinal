@@ -1,5 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -26,8 +25,7 @@ public class Player : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.S))
         {
-            isAccelerating = true;
-            Accelerate();
+            isAccelerating = false;
             moveVector = Vector3.back;
             rb.velocity = moveVector * speed;
         }
