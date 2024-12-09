@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        Mathf.Clamp(speed, 0, 1);
     }
 
     // Update is called once per frame
@@ -20,16 +21,8 @@ public class Player : MonoBehaviour
         {
             isAccelerating = true;
             Accelerate();
-            moveVector = Vector3.forward * speed;
-            rb.velocity = moveVector;
-        }
-        if (Input.GetKey(KeyCode.A))
-        {
-            transform.LookAt(Vector3.left);
-        }
-        if (Input.GetKey(KeyCode.D))
-        {
-            transform.LookAt(Vector3.right);
+            moveVector = Vector3.forward;
+            rb.velocity = moveVector * speed;
         }
         if (Input.GetKeyUp(KeyCode.W))
         {
@@ -37,12 +30,14 @@ public class Player : MonoBehaviour
         }
         if (!isAccelerating)
         {
-            speed -= 0.1f;
+            speed -= 0.05f;
         }
+        Input.GetAxis("Horizontal");
+        Input.GetAxis("Vertical");
     }
 
     void Accelerate()
     {
-        speed += 0.05f;
+        speed += 0.01f;
     }
 }
